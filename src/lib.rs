@@ -52,12 +52,12 @@ pub struct FieldOffset<T, U, PinFlag = NotPinned>(
     ///     of.apply(foo)
     /// }
     /// ```
-    PhantomData<(PhantomContra<T>, U, PinFlag)>,
+    PhantomData<(PhantomFn<T, U>, PinFlag)>,
 );
 
 /// `fn` cannot appear directly in a type that need to be const.
 /// Workaround that with an indirection
-struct PhantomContra<T>(fn(T));
+struct PhantomFn<T, U>(fn(T) -> U);
 
 /// Type that can be used in the `PinFlag` parameter of `FieldOffset` to specify that
 /// this projection is valid on Pin types.
